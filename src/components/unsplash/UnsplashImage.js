@@ -15,7 +15,8 @@ const srcset = (imageUrl) => {
 }
 
 const UnsplashImage = (image) => {
-  const { alt_description, urls, links, user, height, width, blur_hash } = image;
+  const { alt_description, urls, links, user, height, width, blur_hash, priority } = image;
+  const renderingType = priority ? {priority: true} : {loading: "lazy"};
   return (
     <ImageListItem className={`${styles.image}`}>
       {/* TODO: add blurhash */}
@@ -29,7 +30,7 @@ const UnsplashImage = (image) => {
         <Image
           {...srcset(urls.regular)}
           alt={alt_description}
-          loading="lazy"
+          {...renderingType}
           placeholder="blur"
           blurDataURL={urls.small}
           layout="responsive"

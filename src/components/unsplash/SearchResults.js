@@ -67,7 +67,7 @@ const SearchResults = () => {
         <ImageList variant="masonry" cols={cols} gap={gap}>
           {results.map(({ id, ...rest }, idx) => (
             <React.Fragment key={id}>
-              <UnsplashImage id={id} {...rest} />
+              <UnsplashImage id={id} {...rest} priority={page === 1}/>
               {idx === nextRequestLimit && (
                 <span className="sentinel visually-hidden" ref={sentinel} />
               )}
