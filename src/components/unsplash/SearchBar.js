@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 
 import { SearchIcon } from "components/common/icons";
 import { UnsplashSearch } from "services/unsplash";
@@ -8,6 +8,7 @@ import { UnsplashContext } from "contexts/unsplash-search";
 import { PER_PAGE_ITEM_COUNT } from "constants/app-defaults";
 
 const SearchBar = () => {
+  const searchInput = useRef(null);
   const { setQuery, setResults } = useContext(UnsplashContext);
 
   const getResults = debounce((query) => {
@@ -28,6 +29,14 @@ const SearchBar = () => {
     const query = event.target.value;
     getResults(query);
   }
+
+  useEffect(() =>
+    document.addEventListener("keydown", (event) => {
+      if (event.key == "/" && event.ctrlKey) {
+        searchInput.current.focus();
+      }
+    })
+  );
   
   return (
     <div className="input-group">
@@ -41,6 +50,7 @@ const SearchBar = () => {
         placeholder="Search Unsplash"
         autoFocus
         onInput={searchInputHandler}
+        ref={searchInput}
       />
       <span className="input-group-text bg-none rounded-end ">Ctrl + /</span>
     </div>
