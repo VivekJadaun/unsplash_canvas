@@ -1,8 +1,10 @@
+import { useContext } from "react";
+
 import { SearchIcon } from "components/common/icons";
 import { UnsplashSearch } from "services/unsplash";
 import { debounce } from "helpers/common";
-import { useContext } from "react";
 import { UnsplashContext } from "contexts/unsplash-search";
+
 import { PER_PAGE_ITEM_COUNT } from "constants/app-defaults";
 
 const SearchBar = () => {

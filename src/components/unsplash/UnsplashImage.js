@@ -1,38 +1,24 @@
-import { IconButton, ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
+import { IconButton, ImageListItem, ImageListItemBar } from "@mui/material";
 import Image from "next/image";
-import { BlurhashCanvas } from "react-blurhash";
 import styles from "styles/Home.module.css";
 
-const srcset = (imageUrl) => {
-  const image = new URL(imageUrl);
-  const width = image.searchParams.get('w');
-
-  const imgUrl = `${image.origin}${image.pathname}?w=${width}`;
-  return {
-    src: `${imageUrl}`,
-    srcSet: `${imageUrl}&dpr=2 2x`,
-  };
-}
+const srcset = (imageUrl) => ({
+  src: `${imageUrl}`,
+  srcSet: `${imageUrl}&dpr=2 2x`,
+});
 
 const UnsplashImage = (image) => {
-  const { alt_description, urls, links, user, height, width, blur_hash, priority } = image;
-  const renderingType = priority ? {priority: true} : {loading: "lazy"};
+  const { alt_description, urls, links, user, height, width, blur_hash } = image;
+
   return (
     <ImageListItem className={`${styles.image}`}>
-      {/* TODO: add blurhash */}
-      {/* <BlurhashCanvas
-        hash={blur_hash}
-        width={width}
-        height={height}
-        punch={1}
-      /> */}
       <a href={urls.raw} target="_blank" rel="noopener noreferrer">
         <Image
           {...srcset(urls.regular)}
           alt={alt_description}
-          {...renderingType}
+          loading="lazy"
           placeholder="blur"
-          blurDataURL={urls.small}
+          blurDataURL={urls.thumb}
           layout="responsive"
           width={width}
           height={height}

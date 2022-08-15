@@ -1,12 +1,13 @@
-import UnsplashImage from "./UnsplashImage";
 import { ImageList } from "@mui/material";
 import React, { useRef, useCallback, useEffect, useContext } from "react";
+
+import UnsplashImage from "./UnsplashImage";
+import ScrollToTop from "components/common/ScrollToTop";
 import { UnsplashList, UnsplashSearch } from "services/unsplash";
-import { INFINITE_SCROLL_NEXT_REQUEST_AT_PERCENT, PER_PAGE_ITEM_COUNT } from "constants/app-defaults";
 import { logToConsole } from "helpers/common";
 import { UnsplashContext } from "contexts/unsplash-search";
-import ScrollToTop from "components/common/ScrollToTop";
 
+import { INFINITE_SCROLL_NEXT_REQUEST_AT_PERCENT, PER_PAGE_ITEM_COUNT } from "constants/app-defaults";
 
 const SearchResults = () => {
   const sentinel = useRef(null);
@@ -67,7 +68,7 @@ const SearchResults = () => {
         <ImageList variant="masonry" cols={cols} gap={gap}>
           {results.map(({ id, ...rest }, idx) => (
             <React.Fragment key={id}>
-              <UnsplashImage id={id} {...rest} priority={page === 1}/>
+              <UnsplashImage id={id} {...rest}/>
               {idx === nextRequestLimit && (
                 <span className="sentinel visually-hidden" ref={sentinel} />
               )}
